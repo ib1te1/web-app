@@ -1,0 +1,31 @@
+.footer{
+    margin-top:100px;
+    position: relative;
+    display:flex;
+    border-top: 1px solid white;
+}
+.footer-logo {
+    padding-top:20px;
+    margin-left:15px;
+    font-size: 45.14px;
+    display: flex;
+    margin-right:150px;
+
+}
+.footer-columns {
+    padding-top:10px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.footer-columns div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.firstColumn{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding-bottom:10px;
+}

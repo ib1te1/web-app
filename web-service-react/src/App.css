@@ -1,0 +1,140 @@
+.main {
+  justify-content: center;
+  position: relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-left: 230px;
+  top: 50px;
+  padding-right:265px;
+}
+.headerServices{
+  font-size: 31.14px;
+  display:flex;
+  position:relative;
+  left:-626px;
+  justify-content: flex-start;
+}
+.search {
+  display: flex;
+  align-items: center;
+
+}
+
+.searchNotify {
+  font-size: 32px;
+  text-align: left;
+  line-height: 115%;
+  margin-bottom: 20px;
+}
+
+.specialText {
+  color: gray;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 11.27px;
+  background-color: black;
+  padding: 10px;
+  width: 500px;
+  height: 35px;
+  margin-bottom: 20px;
+}
+
+.search-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 11.27px;
+  padding: 2px;
+  background: linear-gradient(90deg, #FFFFFF 75%, #E43EFF 100%, #DB00FF 100%);
+  -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.search-container input[type="text"] {
+  font-size: 19px;
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 5px;
+  border-radius: 11.27px;
+  color: gray;
+  background-color: black;
+}
+
+.search-container input[type="text"]::placeholder {
+  color: gray;
+}
+
+.search-container img {
+  width: 20px;
+  height: 20px;
+  filter: invert(100%);
+}
+
+.searchImage {
+  display: flex;
+  position: relative;
+  right: 0;
+}
+
+.leftSideSearch{
+  margin-bottom:60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.imageSearch{
+  height:520px;
+  width:500px;
+}
+
+#searchIcon {
+  width: 24px; /* Размер изображения */
+  height: 24px; /* Размер изображения */
+  margin-left: 10px; /* Отступ справа от поля ввода */
+  cursor: pointer;
+  filter: invert(100%);/* Изменяет курсор на указатель при наведении */
+}
+.services{
+  display: flex;
+  flex-direction: column;
+  margin-bottom:50px;
+}
+.servicesList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 10px; /* Optional: border radius for styling */
+}
+.servicesList .content {
+  flex: 1;
+  text-align: center;
+  color: white; /* Set text color to white */
+}
+.servicesList .left-button,
+.servicesList .right-button {
+  background-color: transparent; /* Make the button background transparent */
+  border: none; /* Remove the default button border */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.servicesList .left-button img,
+.servicesList .right-button img {
+  width: 18px; /* Set icon width */
+  height: 18px; /* Set icon height */
+  filter: invert(100%); /* Ensure icons are white (adjust if necessary) */
+}
