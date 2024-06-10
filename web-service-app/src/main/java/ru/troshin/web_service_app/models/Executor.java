@@ -3,12 +3,13 @@ package ru.troshin.web_service_app.models;
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
+@SuperBuilder
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)

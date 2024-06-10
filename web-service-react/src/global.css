@@ -3,3 +3,7 @@ body {
     background-color: black; /* Общий цвет сайта черный */
     color: white; /* Цвет текста белый */
 }
+a{
+    color:white;
+    text-decoration: none;
+}

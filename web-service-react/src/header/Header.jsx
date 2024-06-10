@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './headerStyle.css';
 
 function Header() {
@@ -8,13 +9,14 @@ function Header() {
                 ZIPK
             </div>
             <nav className="headerLinks">
-                <div>Главная</div>
-                <div>Каталог</div>
-                <div>Создать заказ</div>
-                <div>Мои заказы</div>
-                <div className="authLink">Вход/Регистрация</div>
+                <Link to="/">Главная</Link>
+                <Link to="/catalog">Каталог</Link>
+                <Link to="/create-order">Создать заказ</Link>
+                <Link to="/my-orders">Мои заказы</Link>
+                <Link to="/auth/login" className="authLink">Вход/Регистрация</Link>
             </nav>
         </header>
     );
 }
+
 export default Header;

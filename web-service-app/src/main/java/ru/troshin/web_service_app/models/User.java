@@ -3,6 +3,7 @@ package ru.troshin.web_service_app.models;
 import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
+import lombok.experimental.SuperBuilder;
 import ru.troshin.web_service_app.enums.Role;
 
 import java.time.LocalDate;
@@ -16,20 +17,24 @@ import java.util.Set;
 @Setter
 @ToString
 @EqualsAndHashCode
-@Builder
+@SuperBuilder
 @Table(name="users")
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "Firstname is mandatory")
     @Column(nullable = false)
-    private String name;
+    private String firstname;
 
     @NotBlank(message = "Surname is mandatory")
     @Column(nullable = false)
     private String surname;
+
+    @NotBlank(message = "Username is mandatory")
+    @Column(nullable = false)
+    private String username;
 
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")

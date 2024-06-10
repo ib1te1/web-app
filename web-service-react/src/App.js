@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import './global.css';
 import Header from './header/Header';
@@ -7,11 +8,29 @@ import searchIcon from './images/search.png';
 import hairdresserIcon from './images/hairdresser.svg';
 import rightArrow from './images/right-arrow.png'
 import leftArrow from './images/left-arrow.png'
+import LoginForm from './auth/LoginForm';
+import RegisterForm from "./auth/RegisterForm";
+
 function App() {
   return (
-      <body>
-      <Header/>
-      <div className="App">
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/auth/login" element={<LoginForm />} />
+            <Route path="/auth/registration" element={<RegisterForm />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+  );
+}
+
+
+function HomePage() {
+  return (
+      <div>
         <main className="main">
           <div className="search">
             <div className="leftSideSearch">
@@ -36,13 +55,13 @@ function App() {
             <div className="headerServices">
               — Услуги
             </div>
-            {/*ДОДЕЛАТЬ*/}
+            {/* ДОДЕЛАТЬ */}
             <div className="servicesList">
               <button className="left-button">
                 <img src={leftArrow} alt="Left Icon"/>
               </button>
               <div className="content">
-                {/*// <!-- Insert your content here -->*/}
+                {/* Вставьте ваш контент здесь */}
               </div>
               <button className="right-button">
                 <img src={rightArrow} alt="Right Icon"/>
@@ -51,8 +70,6 @@ function App() {
           </div>
         </main>
       </div>
-      <Footer/>
-      </body>
   );
 }
 

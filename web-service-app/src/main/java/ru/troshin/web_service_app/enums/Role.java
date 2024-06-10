@@ -1,5 +1,5 @@
 package ru.troshin.web_service_app.enums;
 
 public enum Role {
-    ADMIN,USER,EXECUTOR
+    ROLE_ADMIN,ROLE_USER,ROLE_EXECUTOR
 }

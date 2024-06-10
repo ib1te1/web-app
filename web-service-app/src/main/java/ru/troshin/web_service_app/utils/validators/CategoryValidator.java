@@ -1,5 +1,6 @@
 package ru.troshin.web_service_app.utils.validators;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -8,14 +9,10 @@ import ru.troshin.web_service_app.models.Category;
 import ru.troshin.web_service_app.services.CategoryServiceImpl;
 
 @Component
+@RequiredArgsConstructor
 public class CategoryValidator implements Validator {
 
     private final CategoryServiceImpl categoryService;
-
-    @Autowired
-    public CategoryValidator(CategoryServiceImpl categoryService) {
-        this.categoryService = categoryService;
-    }
 
 
     @Override
