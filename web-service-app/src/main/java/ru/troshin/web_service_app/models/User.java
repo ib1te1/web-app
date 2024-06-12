@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import jakarta.validation.constraints.*;
 import lombok.experimental.SuperBuilder;
+import ru.troshin.web_service_app.enums.Gender;
 import ru.troshin.web_service_app.enums.Role;
 
 import java.time.LocalDate;
@@ -50,6 +51,10 @@ public class User{
 
     @Column(nullable = false)
     private LocalDate createdAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Gender gender;
 
     private LocalDate updatedAt;
 

@@ -1,14 +1,17 @@
 package ru.troshin.web_service_app.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.troshin.web_service_app.dto.LoginRequest;
@@ -30,6 +33,8 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
+
+
     @PostMapping("/registration")
     public ResponseEntity<String> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest,
                                           BindingResult bindingResult) {
@@ -42,6 +47,8 @@ public class AuthController {
                     .surname(registrationRequest.getSurname())
                     .phone(registrationRequest.getPhone())
                     .role(Role.ROLE_USER)
+                    .gender(registrationRequest.getGender())
+                    .profilePictureURL(null)
                     .build();
 
         userValidator.validate(user,bindingResult);
@@ -52,35 +59,26 @@ public class AuthController {
         userService.createUser(user);
         return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
     }
-//    @RequestMapping(value = "/login", method = {RequestMethod.OPTIONS})
-//    public ResponseEntity<?> handleLoginOptions() {
-//        System.out.println("Here handle");
-//        return ResponseEntity.ok().header(HttpHeaders.ALLOW, "OPTIONS").build();
-//    }
+
 
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginPage(@RequestBody LoginRequest loginRequest) {
-        String str=loginRequest.getUsername();
-        String password=loginRequest.getPassword();
+    public ResponseEntity<Long> loginPage(@RequestBody LoginRequest loginRequest) {
         System.out.println("Received login request");
-        System.out.println(str);
-        System.out.println(password);
-        System.out.println("123");
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-            return new ResponseEntity<>("User authenticated successfully!", HttpStatus.OK);
+//            SecurityContext securityContext= SecurityContextHolder.getContext();
+//            securityContext.setAuthentication(authentication);
+//            System.out.println(authentication);
+//            HttpSession session=request.getSession(true);
+//            session.setAttribute("SPRING_SECURITY_CONTEXT",securityContext);
+//            System.out.println("Session from auth:"+session);
+            return new ResponseEntity<>(userService.findUserByUsername(loginRequest.getUsername()).get().getId(),
+                    HttpStatus.OK);
         } catch (AuthenticationException e) {
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        finally {
-            System.out.println("123");
-        }
+
     }
-//    @GetMapping("/login")
-//    public ResponseEntity<String> loginPage() {
-//        System.out.println("Get login page");
-//        return new ResponseEntity<>("Login page", HttpStatus.OK);
-//    }
 }

@@ -7,12 +7,12 @@
   padding-left: 230px;
   top: 50px;
   padding-right:265px;
+
 }
 .headerServices{
   font-size: 31.14px;
   display:flex;
   position:relative;
-  left:-626px;
   justify-content: flex-start;
 }
 .search {
@@ -108,6 +108,8 @@
 }
 .services{
   display: flex;
+  position: relative;
+  width:100%;
   flex-direction: column;
   margin-bottom:50px;
 }
@@ -137,4 +139,36 @@
   width: 18px; /* Set icon width */
   height: 18px; /* Set icon height */
   filter: invert(100%); /* Ensure icons are white (adjust if necessary) */
+}
+/* Добавьте эти стили в ваш CSS файл */
+
+.servicesList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.category-item {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 70px;
+  text-align: center;
+}
+
+.category-item img {
+  width: 300px;
+  height: 240px;
+}
+
+.left-button, .right-button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }

@@ -1,0 +1,138 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+}
+.profileHeader {
+    margin-bottom: 50px;
+    border-radius: 11.27px;
+    box-sizing: border-box;
+    background-color: white;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+.fullName {
+    margin-top: 20px;
+    color: black;
+    font-size: 32px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+.createdAt {
+    margin-top: 10px;
+    color: grey;
+    font-size: 16px;
+}
+.profilePhoto img {
+    margin-right: 100px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.personalData {
+    font-size: 32px;
+    color: black;
+}
+.profileInfo {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 11.27px;
+    box-sizing: border-box;
+    padding-left: 70px;
+    padding-top: 30px;
+}
+.FIOHeader {
+    padding-left: 20px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 1px gray;
+    border-radius: 11.27px;
+    box-sizing: border-box;
+    width: 800px;
+    color: grey;
+    margin-top: 40px;
+}
+.FIO {
+    font-size: 22px;
+    color: black;
+}
+.sex {
+    width: 300px;
+}
+.phone {
+    width: 600px;
+}
+.logout {
+    justify-content: start;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+.logoutLinks {
+    justify-content: start;
+    display: flex;
+    position: relative;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 22px;
+    color: black;
+}
+.delete:hover{
+    color:red;
+}
+.exit:hover{
+    color:grey;
+}
+/* Стилизация контейнера для кнопки */
+.file-upload {
+
+    font-size: 20px;
+    margin-right: 40px;
+    margin-left: -70px;
+    width: 80px;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: #fff; /* Цвет текста */
+    border-radius: 4px;
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    cursor: pointer;
+}
+
+/* Стилизация самой кнопки */
+.file-upload input[type='file'] {
+    width: 80px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0; /* Скрыть оригинальную кнопку загрузки */
+    cursor: pointer;
+}
+
+/* Стилизация текста на кнопке */
+.file-upload .file-select-text {
+    display: inline-block;
+}
+
+/* Стилизация при наведении на кнопку */
+.file-upload:hover {
+    background-color: #0056b3; /* Изменение цвета фона при наведении */
+}

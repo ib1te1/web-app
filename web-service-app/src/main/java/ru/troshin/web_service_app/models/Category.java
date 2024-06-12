@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name="categories")
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Name is mandatory field")
@@ -27,6 +27,6 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Service> services;
 
-    @Column(name = "category_picture")
-    private String categoryPictureURL;
+//    @Column(name = "category_picture")
+//    private String categoryPictureURL;
 }

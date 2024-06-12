@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './auth.css';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
     const [firstname, setFirstName] = useState('');
@@ -10,6 +10,8 @@ function RegisterForm() {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [gender,setGender]=useState('MALE');
+    const navigate=useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -19,6 +21,7 @@ function RegisterForm() {
                     surname: surname,
                     phone: phone,
                     email: email,
+                    gender:gender,
                     username: username,
                     password: password
                 },
@@ -30,6 +33,7 @@ function RegisterForm() {
                 );
 
             console.log('Registration successful:', response.data);
+            navigate('/auth/login')
         } catch (error) {
             console.error('Error registering:', error);
         }
@@ -65,6 +69,26 @@ function RegisterForm() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        <div className="gender-select">
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="MALE"
+                                    checked={gender === 'MALE'}
+                                    onChange={(e) => setGender(e.target.value)}
+                                />
+                                Мужчина
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="FEMALE"
+                                    checked={gender === 'FEMALE'}
+                                    onChange={(e) => setGender(e.target.value)}
+                                />
+                                Женщина
+                            </label>
+                        </div>
                         <input
                             type="text"
                             placeholder="Придумайте логин"

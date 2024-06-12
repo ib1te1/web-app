@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 import './auth.css';
-import { Link,useNavigate } from 'react-router-dom';
 
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            console.log(username+" "+password)
-            console.log(`Sending POST request to ${'http://localhost:8080/auth/login'}`);
-            const response =await axios({
-                method: 'post',
-                url: 'http://localhost:8080/auth/login',
-                data: {
-                    username: username,
-                    password: password
-                },
+            const response = await axios.post('http://localhost:8080/auth/login', {
+                username: username,
+                password: password
+            }, {
                 headers: {
-                    'Content-Type': "application/json"
+                    'Content-Type': 'application/json'
                 }
             });
-            console.log('Login successful:', response.data);
+            console.log('Успешный вход:', response.data);
+            login(response.data.token);
+            sessionStorage.setItem('userId', response.data);
+            console.log("Идентификатор пользователя сохранен в sessionStorage:", sessionStorage.getItem('userId'));
             navigate('/');
         } catch (error) {
-            console.error('Error logging in:');
+            console.error('Ошибка при входе:', error);
         }
     };
 

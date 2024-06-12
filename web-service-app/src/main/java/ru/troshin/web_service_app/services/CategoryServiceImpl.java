@@ -5,11 +5,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.troshin.web_service_app.exeptions.CategoryNotFoundExeption;
 import ru.troshin.web_service_app.models.Category;
+import ru.troshin.web_service_app.models.User;
 import ru.troshin.web_service_app.repositories.CategoryRepository;
 import ru.troshin.web_service_app.services.interfaces.CategoryService;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +54,32 @@ public class CategoryServiceImpl implements CategoryService {
         }
         updatedCategory.setId(id);
         categoryRepository.save(updatedCategory);
+    }
+
+
+    public byte[] getCategoryImage(Long categoryId) {
+        Optional<Category> categoryOptional =categoryRepository.findById(categoryId) ;
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            String filePath = "src/main/resources/static/categoryImages/category_" + category.getId()+".jpg";
+        try {
+            return Files.readAllBytes(Paths.get(filePath));
+            } catch (IOException e) {
+                throw new IllegalStateException("Failed to read image", e);
+            }
+            } else {
+                throw new IllegalStateException("User not found");
+            }
+    }
+
+    public Map<Category,byte[]> getCategoriesWithImages(){
+        Map<Category,byte[]> categoryMap=new HashMap<>();
+        List<Category> categories=new ArrayList<>(categoryRepository.findAll());
+        for (Category category : categories) {
+            categoryMap.put(category,
+                    getCategoryImage(category.getId()));
+        }
+        return categoryMap;
     }
 
     public boolean existsById(Long id) {
