@@ -18,7 +18,7 @@ public class Executor extends User {
 
     @Min(value = 1, message = "Rating must be positive")
     @Max(value = 5,message = "Value must be no more than 5")
-    private int rating;
+    private Double rating;
 
     @Size(max = 500, message = "Description must be less than 500 characters")
     private String description;

@@ -12,6 +12,9 @@ import Profile from "./profile/Profile";
 import { AuthProvider } from './auth/AuthContext';
 import useCategories from "./categories/useCategories";
 import CategoryCarousel from "./categories/CategoryCarousel";
+import Catalog from "./catalog/Catalog";
+import TaskForm from "./task/TaskForm";
+
 
 function App() {
   return (
@@ -24,6 +27,8 @@ function App() {
               <Route path="/auth/login" element={<LoginForm />} />
               <Route path="/auth/registration" element={<RegisterForm />} />
               <Route path="/user/details" element={<Profile />} />
+              <Route path="/catalog" element={<Catalog/>}/>
+              <Route path="/task-form" element={<TaskForm/>}/>
             </Routes>
             <Footer />
           </div>

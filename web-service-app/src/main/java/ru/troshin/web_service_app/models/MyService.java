@@ -17,7 +17,7 @@ import java.util.Set;
 @Builder
 @EqualsAndHashCode
 @Table(name="services")
-public class Service {
+public class MyService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,7 +41,10 @@ public class Service {
     @Min(value = 0, message = "Maximum price must be positive")
     private Double priceMax;
 
+    @ManyToOne
+    @JoinColumn(name = "executor_id", nullable = false)
+    private Executor executor;
+
     @OneToMany(mappedBy = "service")
     private Set<Order> orders;
-
 }

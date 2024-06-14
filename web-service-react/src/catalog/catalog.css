@@ -1,0 +1,121 @@
+.catalog{
+    padding: 20px;
+    display: flex;
+    width: 100%;
+    position: relative;
+    flex-direction: row;
+    justify-content: start;
+}
+.filtration{
+    margin-bottom: 20px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    /*left:-408px;*/
+    top:-30px;
+}
+.catalog img{
+    width: 160px;
+    height: 210px;
+}
+.services-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.servicesNew{
+    margin-left: 60px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.servicesAndPagination{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.service-info{
+    position: relative;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+}
+.pagination{
+    display: flex;
+    position: relative;}
+.service-card {
+    width: 900px;
+    color:black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-info {
+    max-width: 70%;
+}
+
+.service-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.service-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.service-executor {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.service-description {
+    margin-bottom: 10px;
+}
+
+.service-price {
+    font-weight: bold;
+}
+
+.button {
+    background-color: #f90;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #c60;
+}
+.order-button {
+    background-color: orange;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.rightSide{
+    display: flex;
+    flex-direction: column;
+    height: 240px;
+}

@@ -25,7 +25,7 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private Set<Service> services;
+    private Set<MyService> services;
 
 //    @Column(name = "category_picture")
 //    private String categoryPictureURL;

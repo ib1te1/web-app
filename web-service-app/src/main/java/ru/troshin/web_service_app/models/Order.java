@@ -28,7 +28,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name="service_id", nullable = false)
-    private Service service;
+    private MyService service;
 
     @ManyToOne
     @JoinColumn(name = "executor_id", nullable = false)
