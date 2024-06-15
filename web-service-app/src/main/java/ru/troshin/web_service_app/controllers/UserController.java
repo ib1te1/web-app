@@ -38,6 +38,26 @@ public class UserController {
         }
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody User user) {
+        System.out.println(user);
+        try {
+            userService.updateUser(user);
+            return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        try {
+            userService.deleteUser(userId);
+            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @PostMapping("/{userId}/image/upload")
     public ResponseEntity<String> uploadUserProfileImage(@PathVariable Long userId, @RequestParam("file") MultipartFile file) {

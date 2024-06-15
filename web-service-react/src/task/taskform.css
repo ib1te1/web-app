@@ -52,3 +52,62 @@
     border-radius: 10px;
     cursor: pointer;
 }
+.date-range{
+    display: flex;
+    flex-direction: column;
+}
+.price-range{
+    display: flex;
+    flex-direction: column;
+}
+.sroki{
+    padding-left: 150px;
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.prices{
+    padding-left: 110px;
+    width: 450px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+}
+
+.modal-content button {
+    background-color: #f90;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+    background-color: #c60;
+}

@@ -119,3 +119,41 @@
     flex-direction: column;
     height: 240px;
 }
+.search-container {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 11.27px;
+    background-color: black;
+    padding: 10px;
+    width: 500px;
+    height: 35px;
+    margin-bottom: 20px;
+}
+.specialText {
+    color: gray;
+}
+
+.search-container::before {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 11.27px;
+    padding: 2px;
+    background: linear-gradient(90deg, #FFFFFF 75%, #E43EFF 100%, #DB00FF 100%);
+    -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+.search-container img {
+    width: 20px;
+    height: 20px;
+    filter: invert(100%);
+}

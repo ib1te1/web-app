@@ -1,6 +1,5 @@
 package ru.troshin.web_service_app.services;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.troshin.web_service_app.dto.ServiceDTO;
@@ -18,9 +17,10 @@ public class ServiceService {
     private final ServiceRepository serviceRepository;
     private final UserService userService;
 
-    public List<ServiceDTO> getFilteredServices(Long categoryId, Integer priceFrom, Integer priceTo) {
+    public List<ServiceDTO> getFilteredServices(Long categoryId, Integer priceFrom, Integer priceTo, String searchTerm) {
         List<MyService> services = serviceRepository.findAll();
-        List<ServiceDTO> filtredServices=new ArrayList<>();
+        List<ServiceDTO> filteredServices = new ArrayList<>();
+
         if (categoryId != null) {
             services = services.stream()
                     .filter(service -> service.getCategory().getId().equals(categoryId))
@@ -40,11 +40,17 @@ public class ServiceService {
                     .filter(service -> service.getPriceMax() <= priceTo)
                     .collect(Collectors.toList());
         }
-        for(MyService service:services){
-            filtredServices.add(new ServiceDTO(service,userService.getUserProfileImage(service.getExecutor().getId())));
-        }
-        System.out.println(filtredServices);
-        return filtredServices;
-    }
 
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            services = services.stream()
+                    .filter(service -> service.getName().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                            service.getCategory().getName().toLowerCase().contains(searchTerm.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+
+        for (MyService service : services) {
+            filteredServices.add(new ServiceDTO(service, userService.getUserProfileImage(service.getExecutor().getId())));
+        }
+        return filteredServices;
+    }
 }

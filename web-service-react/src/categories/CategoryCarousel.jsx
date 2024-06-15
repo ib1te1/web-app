@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import leftArrow from '../images/left-arrow.png';
 import rightArrow from '../images/right-arrow.png';
-import axios from "axios";
 
 const CategoryCarousel = ({ categories }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const navigate = useNavigate();
 
     const handlePrevious = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? categories.length - 1 : prevIndex - 1));
@@ -14,6 +15,10 @@ const CategoryCarousel = ({ categories }) => {
         setCurrentIndex((prevIndex) => (prevIndex === categories.length - 1 ? 0 : prevIndex + 1));
     };
 
+    const handleCategoryClick = (categoryId) => {
+        navigate(`/catalog?categoryId=${categoryId}`);
+    };
+
     return (
         <div className="servicesList">
             <button className="left-button" onClick={handlePrevious}>
@@ -21,7 +26,7 @@ const CategoryCarousel = ({ categories }) => {
             </button>
             <div className="content">
                 {categories.slice(currentIndex, currentIndex + 3).map((category, index) => (
-                    <div key={index} className="category-item">
+                    <div key={index} className="category-item" onClick={() => handleCategoryClick(category.category.id)}>
                         <img src={`data:image/jpg;base64,${category.image}`} alt={category.category.name} />
                         <span>{category.category.name}</span>
                     </div>

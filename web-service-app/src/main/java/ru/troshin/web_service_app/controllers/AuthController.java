@@ -68,12 +68,6 @@ public class AuthController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-//            SecurityContext securityContext= SecurityContextHolder.getContext();
-//            securityContext.setAuthentication(authentication);
-//            System.out.println(authentication);
-//            HttpSession session=request.getSession(true);
-//            session.setAttribute("SPRING_SECURITY_CONTEXT",securityContext);
-//            System.out.println("Session from auth:"+session);
             return new ResponseEntity<>(userService.findUserByUsername(loginRequest.getUsername()).get().getId(),
                     HttpStatus.OK);
         } catch (AuthenticationException e) {

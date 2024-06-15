@@ -23,6 +23,30 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
+    public void updateUser(User user) {
+        Optional<User> existingUser = userRepository.findById(user.getId());
+        if (existingUser.isPresent()) {
+            User updateUser = existingUser.get();
+            updateUser.setFirstname(user.getFirstname());
+            updateUser.setSurname(user.getSurname());
+            updateUser.setGender(user.getGender());
+            updateUser.setPhone(user.getPhone());
+            updateUser.setEmail(user.getEmail());
+            userRepository.save(updateUser);
+        } else {
+            throw new IllegalStateException("User not found");
+        }
+    }
+
+    public void deleteUser(Long userId) {
+        Optional<User> existingUser = userRepository.findById(userId);
+        if (existingUser.isPresent()) {
+            userRepository.delete(existingUser.get());
+        } else {
+            throw new IllegalStateException("User not found");
+        }
+    }
+
     public void createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setProfilePictureURL("/images/default_profile_picture.jpg");
@@ -65,7 +89,6 @@ public class UserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             String filePath = "src/main/resources/static" + user.getProfilePictureURL();
-            System.out.println(filePath);
             try {
                 return Files.readAllBytes(Paths.get(filePath));
             } catch (IOException e) {

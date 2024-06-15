@@ -22,6 +22,8 @@ public class MyService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     @NotBlank(message = "Name is mandatory")
     @Size(min = 3, max = 50)
     @Column(nullable = false)

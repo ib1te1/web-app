@@ -14,7 +14,8 @@ import useCategories from "./categories/useCategories";
 import CategoryCarousel from "./categories/CategoryCarousel";
 import Catalog from "./catalog/Catalog";
 import TaskForm from "./task/TaskForm";
-
+import MyOrders from "./orders/MyOrders";
+import CreateOrderPage from "./orders/CreateOrderPage";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
               <Route path="/user/details" element={<Profile />} />
               <Route path="/catalog" element={<Catalog/>}/>
               <Route path="/task-form" element={<TaskForm/>}/>
+              <Route path="/my-orders" element={<MyOrders/>}/>
+              <Route path="/create-order" element={<CreateOrderPage/>}/>
             </Routes>
             <Footer />
           </div>
@@ -50,15 +53,15 @@ function HomePage() {
               <div className="searchNotify">
                 <span>Не теряйте время на поиск <br /><span className="specialText">услуг</span></span>
               </div>
-              <div className="search-container">
-                <input type="text" placeholder="Услуга, Категория, Специалист" />
-                <div className="searchImage">
-                  <img src={searchIcon} alt="Search Icon" />
-                </div>
-              </div>
-              <div>
-                <span className="specialText">Например:</span> <span>Парикмахер</span>
-              </div>
+              {/*<div className="search-container">*/}
+              {/*  <input type="text" placeholder="Услуга, Категория, Специалист" />*/}
+              {/*  <div className="searchImage">*/}
+              {/*    <img src={searchIcon} alt="Search Icon" />*/}
+              {/*  </div>*/}
+              {/*</div>*/}
+              {/*<div>*/}
+              {/*  <span className="specialText">Например:</span> <span>Парикмахер</span>*/}
+              {/*</div>*/}
             </div>
             <div className="imageSearch">
               <img src={hairdresserIcon} alt="Hairdresser" />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './filter.css'; // Подключаем файл стилей
+import './filter.css';
 
 const Filter = ({ onFilterChange }) => {
     const [category, setCategory] = useState('');
