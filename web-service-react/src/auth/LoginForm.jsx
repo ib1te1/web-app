@@ -7,6 +7,7 @@ import './auth.css';
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
@@ -21,12 +22,18 @@ function LoginForm() {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log('Успешный вход:', response.data);
+            console.log('Успешный вход:', response.data.userId);
             login(response.data.token);
-            sessionStorage.setItem('userId', response.data);
+            sessionStorage.setItem('userId', response.data.userId);
+            sessionStorage.setItem('role', response.data.role);
+            console.log(response.data.role)
             console.log("Идентификатор пользователя сохранен в sessionStorage:", sessionStorage.getItem('userId'));
+            console.log(sessionStorage.getItem('role'))
             navigate('/');
         } catch (error) {
+            if (error.response && error.response.status === 401) {
+                setErrorMessage('Неверный логин или пароль.');
+            }
             console.error('Ошибка при входе:', error);
         }
     };
@@ -36,6 +43,7 @@ function LoginForm() {
             <main className="main">
                 <div className="auth-container login">
                     <h1 className="enter">Вход</h1>
+                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                     <form onSubmit={handleSubmit} method="POST">
                         <input
                             type="text"

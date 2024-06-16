@@ -31,6 +31,10 @@ public class Order {
     private MyService service;
 
     @ManyToOne
+    @JoinColumn(name="task_id", nullable = false)
+    private Task task;
+
+    @ManyToOne
     @JoinColumn(name = "executor_id", nullable = false)
     private Executor executor;
 
@@ -53,6 +57,7 @@ public class Order {
 
     @PrePersist
     protected void onCreate() {
+        this.status=Status.PENDING;
         this.createdAt = LocalDate.now();
     }
 

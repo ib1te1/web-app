@@ -22,8 +22,6 @@ public class MyService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @NotBlank(message = "Name is mandatory")
     @Size(min = 3, max = 50)
     @Column(nullable = false)
@@ -47,6 +45,6 @@ public class MyService {
     @JoinColumn(name = "executor_id", nullable = false)
     private Executor executor;
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service",cascade = CascadeType.ALL)
     private Set<Order> orders;
 }

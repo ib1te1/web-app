@@ -1,4 +1,4 @@
-.create-order-container{
+.create-task-container{
     color: black;
 }
 .step1{
@@ -13,7 +13,7 @@
     width: 368px;
     height: 202px;
 }
-.create-order-container {
+.create-task-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;

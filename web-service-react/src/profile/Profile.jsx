@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './profile.css';
-import Modal from './Modal'; // Adjust import based on your file structure
+import Modal from './Modal';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 
@@ -57,8 +57,8 @@ const handleImageUpload = async (event) => {
         Authorization: `Bearer ${userId}`,
     },
 });
-setUser(response.data.user);
-setProfileImage(response.data.profilePicture);
+        setUser(response.data.user);
+        setProfileImage(response.data.profilePicture);
 } catch (error) {
     console.error('Error uploading profile image:', error);
 }
@@ -68,6 +68,7 @@ const handleProfileUpdate = async (event) => {
     event.preventDefault();
     try {
         const userId = sessionStorage.getItem('userId');
+        console.log(user)
         await axios.put(`http://localhost:8080/user/update`, user, {
         headers: {
             Authorization: `Bearer ${userId}`,
@@ -80,7 +81,7 @@ const handleProfileUpdate = async (event) => {
 };
 
 const handleDeleteProfile = async () => {
-    setShowModal(true); // Show confirmation modal
+    setShowModal(true);
 };
 
 const confirmDeleteProfile = async () => {
@@ -96,6 +97,9 @@ const confirmDeleteProfile = async () => {
 } catch (error) {
     console.error('Error deleting profile:', error);
 }
+finally {
+        setShowModal(false);
+    }
 };
 
 const handleCloseModal = () => {
@@ -172,6 +176,30 @@ return (
                                 />
                             </div>
                         </div>
+                        {user.role === 'ROLE_EXECUTOR' &&  (
+                            <>
+
+                                <div className="FIOHeader">
+                                    <span>Описание:</span>
+                                    <div className="FIO">
+                                            <textarea
+                                                value={user.description}
+                                                onChange={(e) => setUser({ ...user, description: e.target.value })}
+                                            />
+                                    </div>
+                                </div>
+                                <div className="FIOHeader">
+                                    <span>Опыт работы (лет):</span>
+                                    <div className="FIO">
+                                        <input
+                                            type="number"
+                                            value={user.workExperience}
+                                            onChange={(e) => setUser({ ...user, workExperience: e.target.value })}
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                        )}
                         <button type="submit">Сохранить</button>
                     </form>
                 ) : (
@@ -200,6 +228,34 @@ return (
                                 <span>{user.email}</span>
                             </div>
                         </div>
+                        {user.role === 'ROLE_EXECUTOR' && (
+                            <>
+                                <div className="FIOHeader">
+                                    <span>Рейтинг:</span>
+                                    <div className="FIO">
+                                        <span className="infoValue">{user.rating}</span>
+                                    </div>
+                                </div>
+                                <div className="FIOHeader">
+                                    <span>Описание:</span>
+                                    <div className="FIO">
+                                        <span className="infoValue">{user.description}</span>
+                                    </div>
+                                </div>
+                                <div className="FIOHeader">
+                                    <span>Опыт работы (лет):</span>
+                                    <div className="FIO">
+                                        <span className="infoValue">{user.workExperience}</span>
+                                    </div>
+                                </div>
+                                <div className="FIOHeader">
+                                    <span>Количество выполненных заказов:</span>
+                                    <div className="FIO">
+                                        <span className="infoValue">{user.ordersAmount}</span>
+                                    </div>
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
                 <div className="FIOHeader actions">

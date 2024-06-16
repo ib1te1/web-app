@@ -3,32 +3,40 @@ import axios from 'axios';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import './taskform.css';
 
-function TaskForm() {
+function TaskForm({category}) {
     const [taskName, setTaskName] = useState('');
     const [taskDetails, setTaskDetails] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [priceFrom, setPriceFrom] = useState('');
     const [priceTo, setPriceTo] = useState('');
-    const [searchParams] = useSearchParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchParams] = useSearchParams();
+    const itemId = searchParams.get('itemId');
+
 
     const navigate = useNavigate();
-    const userId = searchParams.get('userId');
-    const serviceId = searchParams.get('serviceId');
+    const userId = sessionStorage.getItem('userId');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(itemId);
+        let apiUrl = 'http://localhost:8080/task/create';
+        if (itemId!=null) {
+            apiUrl = 'http://localhost:8080/order/create-with-task';
+        }
+
         try {
-            const response = await axios.post('http://localhost:8080/task/create', {
+            const response = await axios.post(apiUrl, {
                 userId,
-                serviceId,
                 taskName,
                 taskDetails,
                 startDate,
                 endDate,
                 priceFrom,
-                priceTo
+                priceTo,
+                category,
+                itemId,
             }, {
                 headers: {
                     'Content-Type': "application/json"
@@ -38,6 +46,8 @@ function TaskForm() {
             console.log('Task created successfully:', response.data);
             setIsModalOpen(true);
         } catch (error) {
+            console.log(userId);
+            console.log(itemId);
             console.error('Error creating task:', error);
         }
     };

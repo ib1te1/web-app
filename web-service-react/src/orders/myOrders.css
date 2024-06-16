@@ -15,7 +15,7 @@ body {
     margin-bottom: 20px;
 }
 
-.create-order-button {
+.create-task-button {
     background-color: #333;
     color: #fff;
     padding: 15px;
@@ -29,7 +29,7 @@ body {
     text-align: center;
 }
 
-.create-order-button:hover {
+.create-task-button:hover {
     background-color: #555;
 }
 

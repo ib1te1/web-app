@@ -15,7 +15,7 @@ import CategoryCarousel from "./categories/CategoryCarousel";
 import Catalog from "./catalog/Catalog";
 import TaskForm from "./task/TaskForm";
 import MyOrders from "./orders/MyOrders";
-import CreateOrderPage from "./orders/CreateOrderPage";
+import CreateOrderPage from "./services/CreateOrderPage";
 
 function App() {
   return (

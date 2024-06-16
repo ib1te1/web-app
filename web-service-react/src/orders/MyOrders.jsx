@@ -39,7 +39,7 @@ const MyOrders = () => {
     return (
         <div className="orders-container">
             <h1>Мои заказы</h1>
-            <button className="create-order-button" onClick={handleCreateOrderClick}>Создать заказ</button>
+            <button className="create-task-button" onClick={handleCreateOrderClick}>Создать заказ</button>
             <ul className="orders-list">
                 {orders.map(order => (
                     <li key={order.id} className="order-card">

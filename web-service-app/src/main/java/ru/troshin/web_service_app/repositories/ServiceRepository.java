@@ -11,4 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ServiceRepository extends JpaRepository<MyService, Long> {
     public Optional<MyService> findByName(String name);
+
+    public List<MyService> findByExecutorId(Long id);
 }

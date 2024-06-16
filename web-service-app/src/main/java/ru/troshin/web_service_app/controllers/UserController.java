@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.troshin.web_service_app.dto.ProfileDTO;
+import ru.troshin.web_service_app.models.Executor;
 import ru.troshin.web_service_app.models.User;
 import ru.troshin.web_service_app.services.UserService;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 @RestController
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
@@ -39,7 +41,8 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateUser(@RequestBody User user) {
+    public ResponseEntity<String> updateUser(@RequestBody Executor user) {
+        System.out.println("Controller");
         System.out.println(user);
         try {
             userService.updateUser(user);

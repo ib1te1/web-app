@@ -69,3 +69,44 @@
     height:550px;
     justify-content:space-between;
 }
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Убедитесь, что модальное окно находится выше других элементов */
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    max-width: 400px; /* Максимальная ширина модального окна */
+    width: 90%; /* Ширина модального окна относительно родительского элемента */
+    text-align: center;
+}
+
+/* Стили для кнопки закрытия модального окна */
+.close-modal-btn {
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 16px;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+    color: #666;
+}
+
+/* Стили для текста внутри модального окна */
+.modal-text {
+    margin-bottom: 16px;
+}

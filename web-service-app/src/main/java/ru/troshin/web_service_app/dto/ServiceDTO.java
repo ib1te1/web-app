@@ -1,6 +1,7 @@
 package ru.troshin.web_service_app.dto;
 
 import lombok.Data;
+import ru.troshin.web_service_app.models.Category;
 import ru.troshin.web_service_app.models.MyService;
 
 
@@ -8,6 +9,7 @@ import ru.troshin.web_service_app.models.MyService;
 public class ServiceDTO {
     private Double priceMin;
     private Double priceMax;
+    private Category category;
     private Long id;
     private String name;
     private Long executorId;
@@ -36,5 +38,6 @@ public class ServiceDTO {
         this.description= service.getDescription();
         this.workExperience=service.getExecutor().getWorkExperience();
         this.ordersAmount= service.getExecutor().getOrdersAmount();
+        this.category= service.getCategory();
     }
 }

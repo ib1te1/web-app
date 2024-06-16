@@ -7,21 +7,24 @@ import './catalog.css';
 import searchIcon from "../images/search.png";
 
 function Catalog() {
-    const [services, setServices] = useState([]);
+    const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
-    const servicesPerPage = 5;
+    const [role, setRole] = useState('');
+    const itemsPerPage = 5;
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const categoryId = searchParams.get('categoryId');
-        fetchServices(categoryId);
+        const storedRole = sessionStorage.getItem('role');
+        setRole(storedRole);
+        fetchItems(categoryId, '', '', searchTerm, storedRole);
     }, [location.search]);
 
-    const fetchServices = (categoryId = '', priceFrom = '', priceTo = '', searchTerm = '') => {
+    const fetchItems = (categoryId = '', priceFrom = '', priceTo = '', searchTerm = '', role) => {
         setLoading(true);
 
         axios.get('http://localhost:8080/catalog', {
@@ -29,20 +32,20 @@ function Catalog() {
                 categoryId: categoryId,
                 priceFrom: priceFrom,
                 priceTo: priceTo,
-                searchTerm: searchTerm
+                searchTerm: searchTerm,
+                role: role
             }
         }).then(response => {
-            setServices(response.data);
-            console.log(response.data);
+            setItems(response.data);
             setLoading(false);
         }).catch(error => {
-            console.error('Ошибка при загрузке услуг:', error);
+            console.error('Error fetching data:', error);
             setLoading(false);
         });
     };
 
     const handleFilterChange = ({ category, priceFrom, priceTo }) => {
-        fetchServices(category, priceFrom, priceTo, searchTerm);
+        fetchItems(category, priceFrom, priceTo, searchTerm, role); // Используем role здесь
     };
 
     const handleSearchChange = (event) => {
@@ -52,18 +55,18 @@ function Catalog() {
     const handleSearchSubmit = () => {
         const searchParams = new URLSearchParams(location.search);
         const categoryId = searchParams.get('categoryId');
-        fetchServices(categoryId, '', '', searchTerm);
+        fetchItems(categoryId, '', '', searchTerm, role); // Используем role здесь
     };
 
-    const indexOfLastService = currentPage * servicesPerPage;
-    const indexOfFirstService = indexOfLastService - servicesPerPage;
-    const currentServices = services.slice(indexOfFirstService, indexOfLastService);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const handleOrderClick = (serviceId) => {
+    const handleOrderClick = (itemId) => {
         const userId = sessionStorage.getItem('userId');
-        navigate(`/task-form?userId=${userId}&serviceId=${serviceId}`);
+        navigate(`/task-form?userId=${userId}&itemId=${itemId}`);
     };
     return (
         <main className="main">
@@ -92,25 +95,24 @@ function Catalog() {
                     ) : (
                         <div className="servicesNew">
                             <ul className="services-list">
-                                {currentServices.map(service => (
-                                    <li key={service.id} className="service-card">
+                                {currentItems.map(item => (
+                                    <li key={item.id} className="service-card">
                                         <div className="service-info">
-                                            <h3 className="service-name">{service.name}</h3>
-                                            <p className="service-executor">Исполнитель: {service.firstname} {service.surname}</p>
-                                            <p className="service-description">{service.description}</p>
+                                            <h3 className="service-name">{item.name}</h3>
+                                            <p className="service-executor">{role==='ROLE_USER'?'Исполнитель':'Заказчик'}: {item.firstname} {item.surname}</p>
+                                            <p className="service-description">{item.description}</p>
                                             <p className="service-price">Стоимость за
-                                                услугу: {service.priceMin} - {service.priceMax} рублей</p>
-                                            {/*<p className="executor-rating">{service.rating}</p>*/}
+                                                услугу: {item.priceMin} - {item.priceMax} рублей</p>
                                         </div>
                                         <div className="rightSide">
-                                            {service.profilePicture && (
+                                            {item.profilePicture && (
                                                 <img
-                                                    src={`data:image/jpeg;base64,${service.profilePicture}`}
+                                                    src={`data:image/jpeg;base64,${item.profilePicture}`}
                                                     alt="Profile"
-                                                    className="service-image"
+                                                    className="item-image"
                                                 />
                                             )}
-                                            <button onClick={() => handleOrderClick(service.id)}
+                                            <button onClick={() => handleOrderClick(item.id)}
                                                     className="order-button">
                                                 Предложить заказ
                                             </button>
@@ -118,11 +120,11 @@ function Catalog() {
                                     </li>
                                 ))}
                             </ul>
-                            {services.length === 0 && <div>Нет результатов</div>}
+                            {items.length === 0 && <div>Нет результатов</div>}
                         </div>
                     )}
                     <div className="pagination">
-                        {Array.from({length: Math.ceil(services.length / servicesPerPage)}, (_, index) => (
+                        {Array.from({length: Math.ceil(items.length / itemsPerPage)}, (_, index) => (
                             <button
                                 key={index + 1}
                                 onClick={() => paginate(index + 1)}

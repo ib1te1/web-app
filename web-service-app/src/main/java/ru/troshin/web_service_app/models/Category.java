@@ -24,8 +24,11 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private Set<MyService> services;
+
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    private Set<Task> task;
 
 //    @Column(name = "category_picture")
 //    private String categoryPictureURL;

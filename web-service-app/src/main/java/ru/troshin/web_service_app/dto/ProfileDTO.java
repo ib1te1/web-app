@@ -1,9 +1,9 @@
 package ru.troshin.web_service_app.dto;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 import ru.troshin.web_service_app.enums.Gender;
 import ru.troshin.web_service_app.enums.Role;
+import ru.troshin.web_service_app.models.Executor;
 import ru.troshin.web_service_app.models.User;
 
 import java.time.LocalDate;
@@ -21,8 +21,12 @@ public class ProfileDTO {
     private byte[] profilePicture;
     private Role role;
 
+    private Double workExperience;
+    private String description;
 
     public ProfileDTO(User user,byte[] profilePicture) {
+        System.out.println("DTO");
+        System.out.println(user.getId());
         this.id = user.getId();
         this.firstname = user.getFirstname();
         this.surname = user.getSurname();
@@ -33,5 +37,12 @@ public class ProfileDTO {
         this.role = user.getRole();
         this.gender=user.getGender();
         this.profilePicture=profilePicture;
+
+
+        if (user instanceof Executor) {
+            Executor executor = (Executor) user;
+            this.description = executor.getDescription();
+            this.workExperience = executor.getWorkExperience();
+        }
     }
 }

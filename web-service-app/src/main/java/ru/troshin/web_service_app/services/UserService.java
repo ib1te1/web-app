@@ -3,9 +3,15 @@ package ru.troshin.web_service_app.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
+import ru.troshin.web_service_app.dto.ProfileDTO;
+import ru.troshin.web_service_app.dto.RegistrationRequest;
+import ru.troshin.web_service_app.enums.Role;
+import ru.troshin.web_service_app.models.Executor;
 import ru.troshin.web_service_app.models.User;
 import ru.troshin.web_service_app.repositories.UserRepository;
+import ru.troshin.web_service_app.utils.validators.UserValidator;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,8 +28,10 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final UserValidator userValidator;
 
-    public void updateUser(User user) {
+
+    public void updateUser(Executor user) {
         Optional<User> existingUser = userRepository.findById(user.getId());
         if (existingUser.isPresent()) {
             User updateUser = existingUser.get();
@@ -32,6 +40,14 @@ public class UserService {
             updateUser.setGender(user.getGender());
             updateUser.setPhone(user.getPhone());
             updateUser.setEmail(user.getEmail());
+
+            // Check if the user is an Executor and update specific fields
+            if (updateUser instanceof Executor) {
+                Executor executor = (Executor) updateUser;
+                executor.setDescription(user.getDescription());
+                executor.setWorkExperience(user.getWorkExperience());
+            }
+
             userRepository.save(updateUser);
         } else {
             throw new IllegalStateException("User not found");
@@ -41,16 +57,66 @@ public class UserService {
     public void deleteUser(Long userId) {
         Optional<User> existingUser = userRepository.findById(userId);
         if (existingUser.isPresent()) {
-            userRepository.delete(existingUser.get());
+            User user = existingUser.get();
+            user.getOrders().clear();
+            System.out.println(user.getOrders());
+            userRepository.save(user);
+            userRepository.delete(user);
         } else {
             throw new IllegalStateException("User not found");
         }
     }
 
+    public void registerUser(RegistrationRequest registrationRequest, BindingResult bindingResult) {
+        if (registrationRequest.getRole() == Role.ROLE_EXECUTOR) {
+            Executor executor = Executor.builder()
+                    .username(registrationRequest.getUsername())
+                    .password(registrationRequest.getPassword())
+                    .email(registrationRequest.getEmail())
+                    .firstname(registrationRequest.getFirstname())
+                    .surname(registrationRequest.getSurname())
+                    .phone(registrationRequest.getPhone())
+                    .gender(registrationRequest.getGender())
+                    .role(registrationRequest.getRole())
+                    .description(registrationRequest.getDescription())
+                    .workExperience(registrationRequest.getWorkExperience())
+                    .profilePictureURL(null)
+                    .build();
+            userValidator.validate(executor, bindingResult);
+            if (bindingResult.hasErrors()) {
+                throw new IllegalArgumentException("Validation errors occurred");
+            }
+            createExecutor(executor);
+        } else {
+            User user = User.builder()
+                    .username(registrationRequest.getUsername())
+                    .password(registrationRequest.getPassword())
+                    .email(registrationRequest.getEmail())
+                    .firstname(registrationRequest.getFirstname())
+                    .surname(registrationRequest.getSurname())
+                    .phone(registrationRequest.getPhone())
+                    .gender(registrationRequest.getGender())
+                    .role(registrationRequest.getRole())
+                    .profilePictureURL(null)
+                    .build();
+            userValidator.validate(user, bindingResult);
+            if (bindingResult.hasErrors()) {
+                throw new IllegalArgumentException("Validation errors occurred");
+            }
+            createUser(user);
+        }
+    }
+
     public void createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setProfilePictureURL("/images/default_profile_picture.jpg");
+        user.setProfilePictureURL("/images/default_profile_picture_user.jpg");
         userRepository.save(user);
+    }
+
+    public void createExecutor(Executor executor) {
+        executor.setPassword(passwordEncoder.encode(executor.getPassword()));
+        executor.setProfilePictureURL("/images/default_profile_picture_executor.jpg");
+        userRepository.save(executor);
     }
 
     public Optional<User> findUserByEmail(String email) {

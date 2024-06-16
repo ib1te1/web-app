@@ -1,4 +1,4 @@
-.modal {
+.modal-profile {
     color: black;
     display: none;
     position: fixed;
@@ -11,15 +11,11 @@
     background-color: rgba(0,0,0,0.4);
 }
 
-.modal.show {
-    display: flex;
-    align-items: center;
+.modal-profile.show {
+    display: block;
 }
 
 .modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background-color: white;
     margin: 15% auto;
     padding: 20px;
@@ -34,6 +30,5 @@
 
 .modal-actions button {
     padding: 10px 20px;
-    margin-right: 20px;
     cursor: pointer;
 }

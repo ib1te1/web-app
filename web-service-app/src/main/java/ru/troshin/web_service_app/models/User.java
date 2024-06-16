@@ -65,7 +65,7 @@ public class User{
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Order> orders;
 
     @PrePersist

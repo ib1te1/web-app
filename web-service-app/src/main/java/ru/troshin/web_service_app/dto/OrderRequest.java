@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @Data
 public class OrderRequest {
     private Long userId;
+    private Long executorId;
     private Long serviceId;
     private String taskName;
     private String taskDetails;
@@ -14,4 +15,5 @@ public class OrderRequest {
     private LocalDate endDate;
     private Double priceFrom;
     private Double priceTo;
+    private Long taskId;
 }
