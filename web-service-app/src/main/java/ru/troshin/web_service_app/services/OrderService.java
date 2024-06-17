@@ -6,6 +6,7 @@ import ru.troshin.web_service_app.dto.NewOrderDTO;
 import ru.troshin.web_service_app.dto.OrderRequest;
 import ru.troshin.web_service_app.enums.Role;
 import ru.troshin.web_service_app.enums.Status;
+import ru.troshin.web_service_app.models.Executor;
 import ru.troshin.web_service_app.models.Order;
 import ru.troshin.web_service_app.models.Task;
 import ru.troshin.web_service_app.models.User;
@@ -29,6 +30,30 @@ public class OrderService {
     private final TaskRepository taskRepository;
     private final CategoryRepository categoryRepository;
 
+
+
+
+
+    public Order createOrderDirect(Long taskId,Long executorId) {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new IllegalStateException("Task not found"));
+        Executor executor = executorRepository.findById(executorId)
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+        System.out.println(task);
+        System.out.println(executor);
+        Order order = Order.builder()
+                .user(task.getUser())
+                .service(null)
+                .executor(executor)
+                .task(task)
+                .description(task.getDescription())
+                .startDate(task.getStartDate())
+                .endDate(task.getEndDate())
+                .status(Status.PENDING)
+                .build();
+        System.out.println(order);
+        return orderRepository.save(order);
+    }
 
     public List<Order> getPendingOrdersForExecutor(Long executorId) {
         return orderRepository.findByExecutorIdAndStatus(executorId,Status.PENDING);
@@ -63,6 +88,7 @@ public class OrderService {
     }
 
     public Order createOrder(OrderRequest orderRequest) {
+        System.out.println(orderRequest);
         Order order = Order.builder()
                 .user(userRepository.findById(orderRequest.getUserId()).orElseThrow())
                 .service(serviceRepository.findById(orderRequest.getServiceId()).orElseThrow())
@@ -90,9 +116,14 @@ public class OrderService {
     }
 
     public Order updateOrderStatus(Long orderId, Status status) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalStateException("Order not found"));
-        order.setStatus(status);
-        return orderRepository.save(order);
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setStatus(status);
+            return orderRepository.save(order);
+        } else {
+            throw new IllegalStateException("Order not found");
+        }
     }
 
     public Order save(Order order) {

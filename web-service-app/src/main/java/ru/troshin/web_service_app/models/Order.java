@@ -27,7 +27,7 @@ public class Order {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="service_id", nullable = false)
+    @JoinColumn(name="service_id")
     private MyService service;
 
     @ManyToOne
@@ -41,10 +41,10 @@ public class Order {
     @Size(max = 1000, message = "Description must be less than 1000 characters")
     private String description;
 
-    @FutureOrPresent(message = "Start date must be in the present or future")
+//    @FutureOrPresent(message = "Start date must be in the present or future")
     private LocalDate startDate;
 
-    @Future(message = "End date must be in the future")
+//    @Future(message = "End date must be in the future")
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
