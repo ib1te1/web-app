@@ -41,7 +41,6 @@ public class UserService {
             updateUser.setPhone(user.getPhone());
             updateUser.setEmail(user.getEmail());
 
-            // Check if the user is an Executor and update specific fields
             if (updateUser instanceof Executor) {
                 Executor executor = (Executor) updateUser;
                 executor.setDescription(user.getDescription());

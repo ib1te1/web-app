@@ -16,6 +16,11 @@ import Catalog from "./catalog/Catalog";
 import TaskForm from "./task/TaskForm";
 import MyOrders from "./orders/MyOrders";
 import CreateOrderPage from "./services/CreateOrderPage";
+import AdminPage from "./admin/AdminPage";
+import AdminOrders from "./admin/AdminOrders";
+import AdminServices from "./admin/AdminServices";
+import AdminCategories from "./admin/AdminCategories";
+import AdminUsers from "./admin/AdminUsers";
 
 function App() {
   return (
@@ -32,6 +37,11 @@ function App() {
               <Route path="/task-form" element={<TaskForm/>}/>
               <Route path="/my-orders" element={<MyOrders/>}/>
               <Route path="/create-order" element={<CreateOrderPage/>}/>
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/orders" element={<AdminOrders />} />
+              <Route path="/admin/services" element={<AdminServices />} />
+              <Route path="/admin/categories" element={<AdminCategories />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
             </Routes>
             <Footer />
           </div>
