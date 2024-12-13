@@ -1,6 +1,5 @@
 package ru.troshin.web_service_app.config;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -38,26 +34,12 @@ public class SecurityConfig{
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 )
-//                .cors(AbstractHttpConfigurer::disable)
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .sessionManagement(session -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-//                )
+
                 .authorizeHttpRequests((requests) -> requests
                                 .anyRequest().permitAll()
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/createService","/myServices","/completedOrders").hasAnyRole("EXECUTOR","ADMIN")
-//                        .requestMatchers("/createOrder","/myOrders").hasAnyRole("USER","ADMIN")
-//                        .requestMatchers("/catalog", "/home","/auth/registration","/error","/auth/login").permitAll()
-//                        .anyRequest().authenticated()
+
                 )
-//                .formLogin((form) -> form
-//                        .loginPage("/auth/login")
-//                        .permitAll()
-//                        .loginProcessingUrl("/auth/login")
-//                        .defaultSuccessUrl("/", true)
-//                        .failureUrl("/auth/login?error")
-//                )
+
                 .logout((logout)->logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/auth/login")

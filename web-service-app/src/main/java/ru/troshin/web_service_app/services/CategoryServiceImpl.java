@@ -58,11 +58,14 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     public byte[] getCategoryImage(Long categoryId) {
-        Optional<Category> categoryOptional =categoryRepository.findById(categoryId) ;
+        Optional<Category> categoryOptional = categoryRepository.findById(categoryId) ;
         if (categoryOptional.isPresent()) {
             Category category = categoryOptional.get();
-            String filePath = "src/main/resources/static/categoryImages/category_" + category.getId()+".jpg";
+            System.out.println(category);
+            String filePath = "web-service-app/src/main/resources/static/categoryImages/category_" + category.getId()+".jpg";
+            System.out.println(filePath);
         try {
+            System.out.println("Current working directory: " + System.getProperty("user.dir"));
             return Files.readAllBytes(Paths.get(filePath));
             } catch (IOException e) {
                 throw new IllegalStateException("Failed to read image", e);

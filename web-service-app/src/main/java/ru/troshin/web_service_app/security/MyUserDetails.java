@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class MyUserDetails implements UserDetails {
+public class    MyUserDetails implements UserDetails {
 
     private final User user;
 
